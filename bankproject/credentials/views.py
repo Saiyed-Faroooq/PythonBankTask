@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
-from bankapp.models import District,Branch
+from .models import District, Branch, UserProfile
+from .forms import UserDetails
+from django.http import JsonResponse
 
 
 
@@ -16,8 +18,7 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect('/')
-
+            return render(request, 'add_bridge.html')
         else:
             messages.info(request, 'Username/Password Invalid')
             return redirect('login')
@@ -56,16 +57,45 @@ def logout(request):
 
 
 def addbridge(request):
+    # usr = User.objects.get(id=id)
     return render(request, 'add_bridge.html')
 
 
 def adddetails(request):
-    return render(request, 'add_requirements.html')
+    # usr = User.objects.get(id=id)
+    # districts = District.objects.all()
+    # branches = Branch.objects.all()
+    form = UserDetails(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.info(request, "User details saved")
+        return redirect('adddetails')
+    # if request.method == 'POST':
+    #     name = request.POST.get('name')
+    #     dob = request.POST.get('dob')
+    #     age = request.POST.get('age')
+    #     gender = request.POST.get('gender')
+    #     phone = request.POST.get('phone')
+    #     address = request.POST.get('address')
+    #     account_type = request.POST.get('account_type')
+    #     materials = request.POST.get('materials')
+    #     user = User.objects.create_user(name=name, dob=dob, age=age, gender=gender, phone=phone, address=address, account_type=account_type, materials=materials)
+    #
+    #     user.save()
+    #     messages.info(request, "User details saved")
+    #     return redirect('adddetails')
+    return render(request, 'add_requirements.html', {'form': form})
 
 
-def dependentfield(request):
-    districts = District.objects.all()
-    branchs = Branch.objects.all()
-    selected_district_id = request.GET.get('country', '')
-    selected_branchs = Branch.objects.filter(district_id=selected_district_id)
-    return render(request, 'add_requirements.html', {'districts': districts, 'branchs': branchs, 'selected_branchs': selected_branchs})
+def get_branches(request):
+    district_id = request.GET.get('district_id')
+    branches = Branch.objects.filter(district_id=district_id).values('id', 'name')
+    return JsonResponse(list(branches), safe=False)
+
+
+# def dependentfield(request):
+#     districts = District.objects.all()
+#     branchs = Branch.objects.all()
+#     selected_district_id = request.GET.get('country', '')
+#     selected_branchs = Branch.objects.filter(district_id=selected_district_id)
+#     return render(request, 'add_requirements.html', {'districts': districts, 'branchs': branchs, 'selected_branchs': selected_branchs})

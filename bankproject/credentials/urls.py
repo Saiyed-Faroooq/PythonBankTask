@@ -7,5 +7,6 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path('adddetails/', views.adddetails, name='adddetails'),
     path('addbridge/', views.addbridge, name='addbridge'),
-    path('dependentfield/<int:id>/', views.dependentfield, name='dependentfield'),
+    # path('dependentfield/<int:id>/', views.dependentfield, name='dependentfield'),
+    path('get_branches/', views.get_branches, name='get_branches'),
 ]

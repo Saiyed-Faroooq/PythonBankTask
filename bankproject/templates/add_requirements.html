@@ -87,70 +87,83 @@
         </header>
 
         <div class="container">
-        <form action="{% url 'login' %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'adddetails' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div style="text-align: left; padding: 150px;">
                 <div class="card shadow" style="width: 500px; margin: auto;">
                 <h2 style="text-align: center; height: 10px;"><ins>Additional details required</ins></h2><br>
                 <div class="card-body">
-                <label style="padding: 5px;">Name:</label><input type="text" name="name">
-                    <p style="padding: -10px;"></p>
-                <label style="padding: 5px;">DOB:</label><input type="date" name="dob">
-                    <p style="padding: -10px;"></p>
-                <label style="padding: 5px;">Age:</label><input type="number" name="age">
-                    <p style="padding: -10px;"></p>
-                <label style="padding: 5px;">Gender:</label><br>
-                <ul>
-                    <li><input type="radio" id="male" name="gender" value="Male">
-                        <label for="male">Male</label><br></li>
-                    <li><input type="radio" id="female" name="gender" value="Female">
-                        <label for="female">Female</label><br></li>
-                    <li><input type="radio" id="trans" name="gender" value="Trans">
-                        <label for="trans">Transgender</label><br></li>
-                </ul>
-                <label style="padding: 5px;">Phone No.:</label><input type="number" name="phone">
-                    <p style="padding: -10px;"></p>
-                <label style="padding: 5px;">Address:</label><input type="text" name="address">
-                    <p style="padding: -10px;"></p>
-                <div style="padding: -10px;">
-                <form method="post" action="">
-                    <label for="district" style="padding: 5px;">District:</label>
-                    <select id="district" name="district">
-                        <option value=""{% if not selected_district_id %}selected{% endif %}>Select District</option>
-                        {% for district in districts %}
-                        <option value="{{district.id}}" {% if selected_district_id == district.id %} selected {% endif %}>{{district.name}}</option>
-                        {% endfor %}
-                    </select><br>
+                    {{form.as_div}}
 
-                    <label for="branch" style="padding: 5px;">Branch:</label>
-                    <select id="branch" name="branch">
-                        <option value="">Select Branch</option>
-                        {% for branch in branchs %}
-                        <option value="{{branch.id}}"{% if branch in selected_branchs %}selected{% endif %}>{{branch.name}}</option>
-                        {% endfor %}
-                    </select>
-                </form>
-                </div>
-                    <p style="padding: -10px;"></p>
-<!--                <label style="padding: 5px;">District:</label><input type="password" name="password"><br>-->
-<!--                <label style="padding: 5px;">Branch:</label><input type="password" name="password"><br>-->
-                <label style="padding: 5px;" for="account">Account Type:</label>
-                    <select name="account_type" id="account">
-                      <option value="savings">Savings Account</option>
-                      <option value="current">Current Account</option>
-                    </select>
-                    <p style="padding: -10px;"></p>
-                <label style="padding: 5px;">Materials provide:</label><br>
-                <ul>
-                    <li><input type="radio" id="credit-card" name="materials" value="Credit-card">
-                        <label for="credit-card">Credit Card</label><br></li>
-                    <li><input type="radio" id="debit-card" name="materials" value="Debit-card">
-                        <label for="debit-card">Debit Card</label><br></li>
-                    <li><input type="radio" id="pass-book" name="materials" value="Pass-book">
-                        <label for="pass-book">Pass Book</label><br></li>
-                    <li><input type="radio" id="cheque-book" name="materials" value="Cheque-book">
-                        <label for="cheque-book">Cheque Book</label><br></li>
-                </ul>
+<!--&lt;!&ndash;                <select id="id_district" name="district" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <option value="" disabled selected>Select District</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                    {% for district in districts %}&ndash;&gt;-->
+<!--&lt;!&ndash;                    <option value="{{ district.id }}">{{ district.name }}</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                    {% endfor %}&ndash;&gt;-->
+<!--&lt;!&ndash;                </select>&ndash;&gt;-->
+
+<!--                <select id="id_branch" name="branch" required>-->
+<!--                    <option value="" disabled selected>Select Branch</option>-->
+<!--                </select>-->
+
+<!--                <label style="padding: 5px;">Name:</label><input type="text" name="name">-->
+<!--                    <p style="padding: -10px;"></p>-->
+<!--                <label style="padding: 5px;">DOB:</label><input type="date" name="dob">-->
+<!--                    <p style="padding: -10px;"></p>-->
+<!--                <label style="padding: 5px;">Age:</label><input type="number" name="age">-->
+<!--                    <p style="padding: -10px;"></p>-->
+<!--                <label style="padding: 5px;">Gender:</label><br>-->
+<!--                <ul>-->
+<!--                    <li><input type="radio" id="male" name="gender" value="Male">-->
+<!--                        <label for="male">Male</label><br></li>-->
+<!--                    <li><input type="radio" id="female" name="gender" value="Female">-->
+<!--                        <label for="female">Female</label><br></li>-->
+<!--                    <li><input type="radio" id="trans" name="gender" value="Trans">-->
+<!--                        <label for="trans">Transgender</label><br></li>-->
+<!--                </ul>-->
+<!--                <label style="padding: 5px;">Phone No.:</label><input type="number" name="phone">-->
+<!--                    <p style="padding: -10px;"></p>-->
+<!--                <label style="padding: 5px;">Address:</label><input type="text" name="address">-->
+<!--                    <p style="padding: -10px;"></p>-->
+<!--&lt;!&ndash;                <div style="padding: -10px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                <form method="post" action="">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="district" style="padding: 5px;">District:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <select id="district" name="district">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <option value=""{% if not selected_district_id %}selected{% endif %}>Select District</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                        {% for district in districts %}&ndash;&gt;-->
+<!--&lt;!&ndash;                        <option value="{{district.id}}" {% if selected_district_id == district.id %} selected {% endif %}>{{district.name}}</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                        {% endfor %}&ndash;&gt;-->
+<!--&lt;!&ndash;                    </select><br>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <label for="branch" style="padding: 5px;">Branch:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <select id="branch" name="branch">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <option value="">Select Branch</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                        {% for branch in branchs %}&ndash;&gt;-->
+<!--&lt;!&ndash;                        <option value="{{branch.id}}"{% if branch in selected_branchs %}selected{% endif %}>{{branch.name}}</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                        {% endfor %}&ndash;&gt;-->
+<!--&lt;!&ndash;                    </select>&ndash;&gt;-->
+<!--&lt;!&ndash;                </form>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                    <p style="padding: -10px;"></p>-->
+<!--&lt;!&ndash;                <label style="padding: 5px;">District:</label><input type="password" name="password"><br>&ndash;&gt;-->
+<!--&lt;!&ndash;                <label style="padding: 5px;">Branch:</label><input type="password" name="password"><br>&ndash;&gt;-->
+<!--                <label style="padding: 5px;" for="account">Account Type:</label>-->
+<!--                    <select name="account_type" id="account">-->
+<!--                      <option value="savings">Savings Account</option>-->
+<!--                      <option value="current">Current Account</option>-->
+<!--                    </select>-->
+<!--                    <p style="padding: -10px;"></p>-->
+<!--                <label style="padding: 5px;">Materials provide:</label><br>-->
+<!--                <ul>-->
+<!--                    <li><input type="radio" id="credit-card" name="materials" value="Credit-card">-->
+<!--                        <label for="credit-card">Credit Card</label><br></li>-->
+<!--                    <li><input type="radio" id="debit-card" name="materials" value="Debit-card">-->
+<!--                        <label for="debit-card">Debit Card</label><br></li>-->
+<!--                    <li><input type="radio" id="pass-book" name="materials" value="Pass-book">-->
+<!--                        <label for="pass-book">Pass Book</label><br></li>-->
+<!--                    <li><input type="radio" id="cheque-book" name="materials" value="Cheque-book">-->
+<!--                        <label for="cheque-book">Cheque Book</label><br></li>-->
+<!--                </ul>-->
                 </div>
                 </div>
                 <div style="text-align: center;">
@@ -158,13 +171,33 @@
                 <input type="submit" class="btn btn-primary active" value="Submit">
                 <a href="{% url 'logout' %}" class="btn btn-secondary active" role="button" aria-pressed="true">Logout</a>
                 <p style="padding: -10px;"></p>
-                </div>
-
                 {% for msg in messages %}
                 <h2 style="color: red">{{msg}}</h2>
+                <p>Click to go to <a href="{% url 'index' %}"><b>Home</b></a></p>
                 {% endfor %}
+                </div>
+
             </div>
         </form>
         </div>
+        <script src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
+        <script>
+          $(document).ready(function () {
+            $('#id_district').change(function () {
+              var districtId = $(this).val();
+              $.ajax({
+                url: '{% url "get_branches" %}',
+                data: {'district_id': districtId},
+                success: function (data) {
+                  var branches = $('#id_branch');
+                  branches.empty();
+                  $.each(data, function (index, value) {
+                    branches.append('<option value="' + value.id + '">' + value.name + '</option>');
+                  });
+                }
+              });
+            });
+          });
+        </script>
 </body>
 </html>
